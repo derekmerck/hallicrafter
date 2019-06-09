@@ -3,8 +3,8 @@ from time import sleep
 import board
 from hallicrafter.pixels import PixelStrip
 from hallicrafter.pixels.renderers import FirePixelRenderer, RainbowPixelRenderer
-from hallicrafter.sensor import AM2320Sensor, VEML7700Sensor
-from hallicrafter.oled import SSD1306
+# from hallicrafter.sensor import AM2320Sensor, VEML7700Sensor
+# from hallicrafter.oled import SSD1306
 
 pixel_pin = board.D12
 # npixels = 33  # hallicrafter

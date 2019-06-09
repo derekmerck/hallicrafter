@@ -1,0 +1,10 @@
+attrs
+pillow
+pylms
+RPI.GPIO
+adafruit-blinka
+adafruit-circuitpython-neopixel
+adafruit-circuitpython-bus_device
+adafruit-circuitpython-register
+adafruit-circuitpython-veml7700
+adafruit-circuitpython-ssd1306

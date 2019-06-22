@@ -11,8 +11,6 @@ from ..bus import i2c
 class VEML7700Sensor(Polling, InputMixin):
     # delay can be as little as 0.1 sec
 
-    light = attr.ib(init=False)
-
     hardware = attr.ib(init=False)
     @hardware.default
     def init_hardware(self):
@@ -21,7 +19,9 @@ class VEML7700Sensor(Polling, InputMixin):
     def _update(self):
 
         try:
-            self.light = self.hardware.light
+            self.data = {
+                "light": self.hardware.light
+            }
             logging.info(pformat(self.get_data()))
         except OSError as e:
             logging.error(e)

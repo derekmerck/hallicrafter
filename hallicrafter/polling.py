@@ -24,7 +24,7 @@ class Polling(ABC):
 @attr.s
 class InputMixin(ABC):
 
-    data = attr.ib(init=False)
+    data = attr.ib(init=False, factory=dict)
 
     def get_data(self):
         return self.data
@@ -33,7 +33,7 @@ class InputMixin(ABC):
 @attr.s
 class RenderingMixin(ABC):
 
-    buffer = attr.ib(init=False)
+    buffer = attr.ib(init=False, factory=list)
 
     def render(self):
         raise NotImplementedError

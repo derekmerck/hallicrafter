@@ -16,7 +16,7 @@ class AM2320Sensor(Polling, InputMixin):
     def init_hardware(self):
         return adafruit_am2320.AM2320(i2c)
 
-    def poll(self):
+    def _update(self):
 
         try:
             self.data = {
@@ -27,6 +27,4 @@ class AM2320Sensor(Polling, InputMixin):
         except OSError as e:
             logging.error(e)
 
-    def get_data(self):
-        return self.data
 

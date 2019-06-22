@@ -18,7 +18,7 @@ class VEML7700Sensor(Polling, InputMixin):
     def init_hardware(self):
         return adafruit_veml7700.VEML7700(i2c)
 
-    def poll_hardware(self):
+    def _update(self):
 
         try:
             self.light = self.hardware.light
@@ -26,8 +26,4 @@ class VEML7700Sensor(Polling, InputMixin):
         except OSError as e:
             logging.error(e)
 
-    def get_data(self):
-        return {
-            "light": self.light
-        }
 

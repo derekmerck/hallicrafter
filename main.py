@@ -34,9 +34,9 @@ if __name__ == "__main__":
     while True:
 
         pixels.update()
-        # temp_hum_sensor.update()
-        # light_sensor.update()
-        # oled.stats()
+        temp_hum_sensor.update()
+        light_sensor.update()
+        oled.stats()
 
         sleep(loop_delay)
 

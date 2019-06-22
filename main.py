@@ -3,12 +3,12 @@ from time import sleep
 import board
 from hallicrafter.pixels import PixelStrip
 from hallicrafter.pixels.renderers import FirePixelRenderer, RainbowPixelRenderer
-# from hallicrafter.sensor import AM2320Sensor, VEML7700Sensor
-# from hallicrafter.oled import SSD1306
+from hallicrafter.sensor import AM2320Sensor, VEML7700Sensor
+from hallicrafter.oled import SSD1306
 
 pixel_pin = board.D12
-# npixels = 33  # hallicrafter
-npixels = 20  # panasonic
+npixels = 33  # hallicrafter
+# npixels = 20  # panasonic
 oled_reset_pin = board.D4
 
 has_oled = True
@@ -25,11 +25,11 @@ if __name__ == "__main__":
 
     renderer = RainbowPixelRenderer(npixels=npixels)
     pixels = PixelStrip(pin=pixel_pin, npixels=npixels)
-    # temp_hum_sensor = AM2320Sensor(delay=3)
-    # light_sensor = VEML7700Sensor(delay=0.5)
-    # oled = SSD1306()
+    temp_hum_sensor = AM2320Sensor(delay=3)
+    light_sensor = VEML7700Sensor(delay=0.5)
+    oled = SSD1306()
 
-    # oled.test()
+    oled.test()
 
     while True:
 

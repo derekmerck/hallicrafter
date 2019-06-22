@@ -4,12 +4,14 @@ import attr
 from pylms.server import Server
 from pylms.player import Player
 
+from ..polling import Polling, InputMixin
+
 
 @attr.s
-class LMSConnection(object):
+class LMSConnection(Polling, InputMixin):
 
-    server_hostname = attr.ib()
-    player_name = attr.ib()
+    server_hostname = attr.ib(default=None)
+    player_name = attr.ib(default=None)
     server_port = attr.ib(default=9090)
 
     server = attr.ib(init=False, type=Server)
@@ -32,10 +34,8 @@ class LMSConnection(object):
             if p.name == self.player_name:
                 return p
 
-    player_info = attr.ib(init=False, factory=dict)
-
-    def update(self):
-        self.player_info = {
+    def _update(self):
+        return {
             "name": self.player.get_name(),
             "mode": self.player.get_mode(),
             "connected": self.player.is_connected,
@@ -44,9 +44,4 @@ class LMSConnection(object):
             "track_time": self.player.get_time_elapsed(),
             "track_remaining": self.player.get_time_remaining()
         }
-        logger = logging.getLogger("LMS")
-        logger.info(pformat(self.get_data()))
-
-    def get_data(self):
-        return self.player_info
 

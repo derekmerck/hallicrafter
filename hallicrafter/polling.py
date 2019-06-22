@@ -27,7 +27,7 @@ class InputMixin(ABC):
     data = attr.ib(init=False)
 
     def get_data(self):
-        raise NotImplementedError
+        return self.data
 
 
 @attr.s

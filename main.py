@@ -1,6 +1,8 @@
 import logging
 from time import sleep
-import board
+
+from hallicrafter.drivers import board
+
 from hallicrafter.pixels import PixelStrip
 from hallicrafter.pixels.renderers import FirePixelRenderer, RainbowPixelRenderer
 from hallicrafter.sensor import AM2320Sensor, VEML7700Sensor
@@ -29,7 +31,7 @@ if __name__ == "__main__":
     light_sensor = VEML7700Sensor(delay=0.5)
     oled = SSD1306()
 
-    oled.test()
+    # oled.test()
 
     while True:
 
@@ -38,5 +40,6 @@ if __name__ == "__main__":
         light_sensor.update()
         oled.stats()
 
+        logging.info("Waiting")
         sleep(loop_delay)
 

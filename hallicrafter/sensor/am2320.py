@@ -1,9 +1,10 @@
 import logging
 from pprint import pprint, pformat
 import attr
-import adafruit_am2320
 
 from ..polling import Polling, InputMixin
+
+from ..drivers import adafruit_am2320
 from ..bus import i2c
 
 

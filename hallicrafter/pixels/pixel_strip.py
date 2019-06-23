@@ -1,9 +1,8 @@
 import time
-import board
-import neopixel
 import attr
 import logging
 
+from ..drivers import board, neopixel
 from .renderers import RainbowPixelRenderer, FirePixelRenderer
 
 @attr.s

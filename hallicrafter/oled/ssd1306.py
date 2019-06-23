@@ -1,12 +1,9 @@
 import time
-import adafruit_ssd1306
-import board
-import digitalio
-import attr
 import subprocess
-
+import attr
 from PIL import Image, ImageDraw, ImageFont
 
+from ..drivers import board, digitalio, adafruit_ssd1306
 from ..bus import i2c
 
 # https://learn.adafruit.com/adafruit-oled-displays-for-raspberry-pi/programming-your-display

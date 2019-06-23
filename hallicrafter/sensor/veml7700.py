@@ -1,9 +1,9 @@
 import logging
 from pprint import pprint, pformat
-import adafruit_veml7700
 import attr
 
 from ..polling import Polling, InputMixin
+from ..drivers import adafruit_veml7700
 from ..bus import i2c
 
 

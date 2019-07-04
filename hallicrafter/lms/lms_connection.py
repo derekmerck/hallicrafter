@@ -32,10 +32,12 @@ class LMSConnection(Polling, InputMixin):
         players = self.server.get_players()
         for p in players:
             if p.name == self.player_name:
+                logger = logging.getLogger("LMS")
+                logger.info("Tracked player: %s" % p.name)
                 return p
 
     def _update(self):
-        return {
+        self.data = {
             "name": self.player.get_name(),
             "mode": self.player.get_mode(),
             "connected": self.player.is_connected,
@@ -44,4 +46,7 @@ class LMSConnection(Polling, InputMixin):
             "track_time": self.player.get_time_elapsed(),
             "track_remaining": self.player.get_time_remaining()
         }
+        logger = logging.getLogger("LMS")
+        logger.info(pformat(self.get_data()))
+
 

@@ -2,7 +2,7 @@ import logging
 from hallicrafter.lms import LMSConnection
 
 server_hostname = "boxwood"
-player_name = "retropie"
+player_name = "hallicrafter"
 
 if __name__ == "__main__":
 

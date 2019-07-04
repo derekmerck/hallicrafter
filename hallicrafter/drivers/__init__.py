@@ -27,3 +27,4 @@ try:
 except ModuleNotFoundError:
     from .mock import Mock as adafruit_veml7700
 
+from .sysinfo import sysinfo

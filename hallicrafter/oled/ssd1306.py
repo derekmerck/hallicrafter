@@ -1,9 +1,8 @@
 import time
-import subprocess
 import attr
 from PIL import Image, ImageDraw, ImageFont
 
-from ..drivers import board, digitalio, adafruit_ssd1306
+from ..drivers import board, digitalio, adafruit_ssd1306, sysinfo
 from ..bus import i2c
 
 # https://learn.adafruit.com/adafruit-oled-displays-for-raspberry-pi/programming-your-display
@@ -69,26 +68,17 @@ class SSD1306(OLED):
 
     def stats(self):
 
-        # Shell scripts for system monitoring from here:
-        # https://unix.stackexchange.com/questions/119126/command-to-display-memory-usage-disk-usage-and-cpu-load
-        cmd = "hostname -I | cut -d\' \' -f1"
-        IP = subprocess.check_output(cmd, shell=True).decode("utf-8")
-        cmd = "top -bn1 | grep load | awk '{printf \"CPU Load: %.2f\", $(NF-2)}'"
-        CPU = subprocess.check_output(cmd, shell=True).decode("utf-8")
-        cmd = "free -m | awk 'NR==2{printf \"Mem: %s/%s MB  %.2f%%\", $3,$2,$3*100/$2 }'"
-        MemUsage = subprocess.check_output(cmd, shell=True).decode("utf-8")
-        cmd = "df -h | awk '$NF==\"/\"{printf \"Disk: %d/%d GB  %s\", $3,$2,$5}'"
-        Disk = subprocess.check_output(cmd, shell=True).decode("utf-8")
+        info = sysinfo()
 
         # Get drawing object to draw on image.
         draw = ImageDraw.Draw(self.buffer)
 
         draw.rectangle((0, 0, self.width, self.height), outline=0, fill=0)
 
-        draw.text((0, 0), "IP: " + IP, font=self.font, fill=255)
-        draw.text((0, 8), CPU, font=self.font, fill=255)
-        draw.text((0, 16), MemUsage, font=self.font, fill=255)
-        draw.text((0, 25), Disk, font=self.font, fill=255)
+        draw.text((0, 0),  info["ip"],   font=self.font, fill=255)
+        draw.text((0, 8),  info["cpu"],  font=self.font, fill=255)
+        draw.text((0, 16), info["mem"],  font=self.font, fill=255)
+        draw.text((0, 25), info["disk"], font=self.font, fill=255)
 
         self.buffer = self.buffer.rotate(180)
 

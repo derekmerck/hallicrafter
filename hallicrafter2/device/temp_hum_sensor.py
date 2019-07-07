@@ -1,5 +1,4 @@
 from .device import Device
-from .i2c import i2c_bus
 
 
 class TempHumSensor(Device):
@@ -8,7 +7,10 @@ class TempHumSensor(Device):
         Device.__init__(self, *args, **kwargs)
 
         import adafruit_am2320
+        from .i2c import i2c_bus
         self.sensor = adafruit_am2320.AM2320(i2c_bus)
+
+        # Order is vdd, sda, gnd, scl (l->r, facing grid)
 
     def read(self):
         try:
@@ -19,5 +21,5 @@ class TempHumSensor(Device):
         except (OSError, RuntimeError) as e:
             print(e)
 
-    def render(self):
-        print(self.data)
+    # def render(self):
+    #     print(self.data)

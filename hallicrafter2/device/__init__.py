@@ -4,3 +4,6 @@ from .led_strip import LEDStrip
 from .light_sensor import HDRLightSensor
 from .oled_panel import OLEDPanel
 from .temp_hum_sensor import TempHumSensor
+from .analog_input import AnalogInput
+from .uart import SerialIO
+from .cpu import Microprocessor

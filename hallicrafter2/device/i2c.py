@@ -1,4 +1,8 @@
 import busio
 import board
 
-i2c_bus = busio.I2C(board.SCL, board.SDA)
+try:
+    i2c_bus = busio.I2C(board.SCL, board.SDA)
+except RuntimeError:
+    print("I2C unavailable!")
+    i2c_bus = None

@@ -1,5 +1,4 @@
 from .device import Device
-from .i2c import i2c_bus
 
 
 class HDRLightSensor(Device):
@@ -8,6 +7,7 @@ class HDRLightSensor(Device):
         Device.__init__(self, *args, **kwargs)
 
         import adafruit_tsl2591
+        from .i2c import i2c_bus
         self.sensor = adafruit_tsl2591.TSL2591(i2c_bus)
 
     def read(self):
@@ -18,8 +18,8 @@ class HDRLightSensor(Device):
         except (OSError, RuntimeError) as e:
             print(e)
 
-    def render(self):
-        print(self.data)
+    # def render(self):
+    #     print(self.data)
 
 
 class LightSensor(Device):
@@ -35,7 +35,7 @@ class LightSensor(Device):
 
         try:
             return {
-                "light": self.hardware.light
+                "light": self.sensor.light
             }
         except (OSError, RuntimeError) as e:
             print(e)

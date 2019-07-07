@@ -1,0 +1,17 @@
+
+board
+busio
+analogio
+digitalio
+microcontroller
+
+adafruit_am2320
+
+adafruit_ssd1306
+adafruit_framebuf
+bus_device
+
+adafruit_tsl2591
+adafruit_veml7700
+
+neopixels

@@ -23,6 +23,9 @@ result: Return "OK" and set local.data[key] = value
 input: `GET key {key key ...}`
 result: Return "OK" and values stored at local.data[keys]
         as json if those keys exist
+        
+input: `DLIST`
+result: Listing of all device names from Device.registry.keys()
 
 input: `DPUT device key value`
 result: Return "OK" and set device.data[key] = value
@@ -44,10 +47,15 @@ def mk_bytes(s):
 
 class SerialIO(Device):
 
+    id = 0
+
     def __init__(self, tx_pin=board.TX, rx_pin=board.RX,
                  baudrate=115200, tx_led=None, rx_led=None,
-                 *args, **kwargs):
-        Device.__init__(self, *args, **kwargs)
+                 name=None, *args, **kwargs):
+        if not name:
+            name = "ser{}".format(SerialIO.id)
+        SerialIO.id += 1
+        Device.__init__(self, name=name, *args, **kwargs)
 
         import busio
         import digitalio
@@ -73,11 +81,14 @@ class SerialIO(Device):
 
     def handle_rx(self):
 
+        print("RX: " + self.rx_data)
+
         # Parse rx
-        inst, *args = self.rx_data.rstrip().split(" ")
+        inst, *args = self.rx_data.rstrip().lstrip().split(" ")
 
         if inst == "HELP":
-            response = _helpstr
+            response = "\nOK HELP\n"
+            response += _helpstr
 
         elif inst == "PUT":
             key = args[0]
@@ -123,13 +134,20 @@ class SerialIO(Device):
                 result_str = json.dumps(result)
                 response += result_str + "\n"
 
+        elif inst == "DLIST":
+            result = list(Device.registry.keys())
+            result_str = json.dumps(result)
+            response = "\nOK DLIST\n"
+            response += result_str + "\n"
+
         else:
             response = "\nNOK Unknown command {}\n".format(inst)
 
+        print("TX: " + response, end="")
         self.tx_data += mk_bytes(response)
 
     def read(self):
-        data = self.uart.read(64)  # read up to 1024 bytes
+        data = self.uart.read(128)  # read up to 128 bytes
 
         if data:
             if self.rx_led:

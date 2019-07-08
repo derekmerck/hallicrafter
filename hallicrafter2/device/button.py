@@ -3,8 +3,13 @@ from .device import Device
 
 class Button(Device):
 
-    def __init__(self, pin, *args, **kwargs):
-        Device.__init__(self, *args, **kwargs)
+    id = 0
+
+    def __init__(self, pin, name=None, *args, **kwargs):
+        if not name:
+            name = "but{}".format(Button.id)
+        Button.id += 1
+        Device.__init__(self, name=name, *args, **kwargs)
 
         import digitalio
         self.button = digitalio.DigitalInOut(pin)

@@ -3,8 +3,13 @@ from .device import Device
 
 class OLEDPanel(Device):
 
-    def __init__(self, dims, reset_pin, *args, **kwargs):
-        Device.__init__(self, *args, **kwargs)
+    id = 0
+
+    def __init__(self, dims, reset_pin, name=None, *args, **kwargs):
+        if not name:
+            name = "olp{}".format(OLEDPanel.id)
+        OLEDPanel.id += 1
+        Device.__init__(self, name=name, *args, **kwargs)
 
         import adafruit_ssd1306
         from .i2c import i2c_bus

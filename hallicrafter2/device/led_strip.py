@@ -3,8 +3,13 @@ from .device import Device
 
 class LEDStrip(Device):
 
-    def __init__(self, ctrl_pin, num_leds, *args, **kwargs):
-        Device.__init__(self, *args, **kwargs)
+    id = 0
+
+    def __init__(self, ctrl_pin, num_leds, name=None, *args, **kwargs):
+        if not name:
+            name = "led{}".format(LEDStrip.id)
+        LEDStrip.id += 1
+        Device.__init__(self, name=name, *args, **kwargs)
 
         import neopixel
         self.pixels = neopixel.NeoPixel(ctrl_pin, num_leds,

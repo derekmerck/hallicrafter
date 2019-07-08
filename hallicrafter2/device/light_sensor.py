@@ -1,10 +1,14 @@
 from .device import Device
 
-
 class HDRLightSensor(Device):
 
-    def __init__(self, *args, **kwargs):
-        Device.__init__(self, *args, **kwargs)
+    id = 0
+
+    def __init__(self, name=None, *args, **kwargs):
+        if not name:
+            name = "lth{}".format(HDRLightSensor.id)
+        HDRLightSensor.id += 1
+        Device.__init__(self, name=name, *args, **kwargs)
 
         import adafruit_tsl2591
         from .i2c import i2c_bus
@@ -25,8 +29,13 @@ class HDRLightSensor(Device):
 class LightSensor(Device):
     # delay can be as little as 0.1 sec
 
-    def __init__(self, *args, **kwargs):
-        Device.__init__(self, *args, **kwargs)
+    id = 0
+
+    def __init__(self, name=None, *args, **kwargs):
+        if not name:
+            name = "lit{}".format(LightSensor.id)
+        LightSensor.id += 1
+        Device.__init__(self, name=name, *args, **kwargs)
 
         import adafruit_veml7700
         self.sensor = adafruit_veml7700.VEML7700(i2c_bus)

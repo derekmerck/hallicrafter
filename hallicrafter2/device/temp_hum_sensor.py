@@ -3,8 +3,13 @@ from .device import Device
 
 class TempHumSensor(Device):
 
-    def __init__(self, *args, **kwargs):
-        Device.__init__(self, *args, **kwargs)
+    id = 0
+
+    def __init__(self, name=None, *args, **kwargs):
+        if not name:
+            name = "tmh{}".format(TempHumSensor.id)
+        TempHumSensor.id += 1
+        Device.__init__(self, name=name, *args, **kwargs)
 
         import adafruit_am2320
         from .i2c import i2c_bus
@@ -20,6 +25,3 @@ class TempHumSensor(Device):
             }
         except (OSError, RuntimeError) as e:
             print(e)
-
-    # def render(self):
-    #     print(self.data)

@@ -3,8 +3,13 @@ from .device import Device
 
 class AnalogInput(Device):
 
-    def __init__(self, pin, *args, **kwargs):
-        Device.__init__(self, *args, **kwargs)
+    id = 0
+
+    def __init__(self, pin, name=None, *args, **kwargs):
+        if not name:
+            name = "ain{}".format(AnalogInput.id)
+        AnalogInput.id += 1
+        Device.__init__(self, name=name, *args, **kwargs)
 
         import analogio
         self.input = analogio.AnalogIn(pin)

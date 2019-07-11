@@ -7,5 +7,6 @@ from .sensors import TempHumSensor, HDRLightSensor, \
 from .analog_in import AnalogInput
 from .uart import SerialIO
 from .rotary_in import RotaryInput
-from .sys import I2CBus, Memory, Microprocessor
+from .sys import I2CBus, SPIBus, Memory, Microprocessor
 from .siren_ic import SirenIC
+from .audio_amp import AmpStereo20W

@@ -1,5 +1,20 @@
 from .device import Device
 
+class SPIBus(Device):
+
+    def __init__(self, *args, **kwargs):
+
+        Device.__init__(self, name="spi", *args, **kwargs)
+
+        import busio
+        import board
+
+        self.bus = None
+        try:
+            busio.SPI(board.SCK, MOSI=board.MOSI, MISO=board.MISO)
+        except RuntimeError:
+            print("SPI unavailable!")
+
 
 class I2CBus(Device):
 

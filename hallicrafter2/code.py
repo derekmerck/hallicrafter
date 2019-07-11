@@ -1,23 +1,27 @@
 import time
 import board
-from device import Device, LEDStrip, OLEDPanel, \
+from device import Device, LEDStrip, OLEDPanel, AmpStereo20W, \
     HDRLightSensor, TempHumSensor, TempHumGasSensor, UVLightSensor, \
-    Microprocessor, Memory, I2CBus, SerialIO
+    Microprocessor, Memory, I2CBus, SPIBus, SerialIO
 
 LED_STRIP_CTRL_PIN = board.NEOPIXEL
 LED_STRIP_NUM_LEDS = 1
-# LED_STRIP2_CTRL_PIN = board.A5
-# LED_STRIP2_NUM_LEDS = 24
 OLED_RESET_PIN = board.D9  # D6 is A1 on cpx
-OLED_DIMS = (128,64)
-# IR_DIODE_PIN = board.A0
-#
-# ROT_PIN_A = board.D11
-# ROT_PIN_B = board.D10
+OLED_DIMS = (128, 64)
 
 
 # -------------------------------
-# Create the led strip
+# Create sys objects
+# -------------------------------
+
+cpu = Microprocessor(interval=2.0)  # No need to update often
+mem = Memory(interval=2.0)          # No need to update often
+ser = SerialIO(interval=0.1)
+# spi = SPIBus()
+i2c = I2CBus()
+
+# -------------------------------
+# Create LED strip
 # -------------------------------
 
 led_strip  = LEDStrip(LED_STRIP_CTRL_PIN, LED_STRIP_NUM_LEDS, interval=0.01)
@@ -28,37 +32,15 @@ def wheel_callback(self):
     self.fill(next(rgb_gen))
 led_strip.callbacks.append(wheel_callback)
 
-#
-# led_strip2  = LEDStrip(LED_STRIP2_CTRL_PIN, LED_STRIP2_NUM_LEDS, interval=0.1)
-#
-# def wheel_callback2():
-#     led_strip2.fill(next(rgb_gen))
-# led_strip2.callback = wheel_callback2
 
 # -------------------------------
-# Create the button objects
+# Create sensors
 # -------------------------------
 
-# lf_button = Button(board.BUTTON_A)
-#
-# def lf_button_callback():
-#     print("left button = {}".format(lf_button.button.value))
-#
-# lf_button.callback = lf_button_callback
-
-# rot = RotaryInput(ROT_PIN_A, ROT_PIN_B, name="vol")
-
-# -------------------------------
-# Create the sensor objects
-# -------------------------------
-
-i2c = I2CBus()
-#
-light_sensor = HDRLightSensor(i2c, interval=5)
-temp_hum_sensor = TempHumSensor(i2c, interval=5)
-
+lt_sensor = HDRLightSensor(i2c, interval=5)
 uv_sensor = UVLightSensor(i2c, interval=5)
-thg_sensor = TempHumGasSensor(i2c, interval=5)
+tmp_hum_sensor = TempHumSensor(i2c, interval=5)
+tmp_hum_gas_sensor = TempHumGasSensor(i2c, interval=5)
 
 # ir_sensor = AnalogInput(IR_DIODE_PIN, name="ird0", interval=0.001)
 #
@@ -89,7 +71,7 @@ oled_panel = OLEDPanel(i2c, OLED_DIMS, OLED_RESET_PIN, interval=4.0)
 
 def read_sensors(self):
     self.data.update(uv_sensor.data)
-    self.data.update(thg_sensor.data)
+    self.data.update(tmp_hum_gas_sensor.data)
 
     # self.data["cpu_t"] = cpu.data["temperature"]
     # self.data["poll_t"] = cpu.data.get("poll_t")
@@ -97,12 +79,8 @@ def read_sensors(self):
     # self.data["num hits"] = ir_sensor.data.get("num_hits")
     # print(oled_panel.data)
 
+
 oled_panel.callbacks.append(read_sensors)
-
-cpu = Microprocessor(interval=2.0)  # No need to update often
-mem = Memory(interval=2.0)          # No need to update often
-
-ser = SerialIO(interval=0.1)
 
 
 # -------------------------------

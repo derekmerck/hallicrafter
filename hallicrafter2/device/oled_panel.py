@@ -5,19 +5,18 @@ class OLEDPanel(Device):
 
     id = 0
 
-    def __init__(self, dims, reset_pin, name=None, *args, **kwargs):
+    def __init__(self, i2c, dims, reset_pin, name=None, *args, **kwargs):
         if not name:
             name = "olp{}".format(OLEDPanel.id)
         OLEDPanel.id += 1
         Device.__init__(self, name=name, *args, **kwargs)
 
         import adafruit_ssd1306
-        from .i2c import i2c_bus
         import digitalio
         pin = digitalio.DigitalInOut(reset_pin)
         self.oled = adafruit_ssd1306.SSD1306_I2C(
             dims[0], dims[1],
-            i2c_bus,
+            i2c.bus,
             reset=pin,
             addr=0x3d
         )
@@ -37,6 +36,5 @@ class OLEDPanel(Device):
             i+=1
 
     def write(self):
-
         self.render_data()
         self.oled.show()

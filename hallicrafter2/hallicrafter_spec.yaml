@@ -1,0 +1,56 @@
+# Device Specs
+
+Hallicrafter:
+
+  # Coms
+  
+  serial_io:
+    type: SerialIO
+    
+  # Sensors
+  
+  light_sensor:
+    type: HDRLightSensor
+
+  temp_hum_sensor:
+    type: TempHumSensor
+
+  # Interface
+
+  vol_pot:
+    type: AnalogIn
+    pin:  A0
+    
+  mute_switch:
+    type: DigitalIn
+    pin:  D10
+    
+  led_switch:
+    type: DigitalIn
+    pin:  D12
+    
+  # Outputs
+
+  mute_line:
+    type: DigitalOut
+    pin:  D11
+    
+  vol_line:
+    type: DigitalVol
+
+  oled_disp:
+    type: OLEDDisplay
+
+  led_onboard:
+    type: LEDStrip
+    num_leds: 1
+
+  led_backlight:
+    type: LEDStrip
+    num_leds: 4
+    pin: D13
+
+    
+  
+    
+      

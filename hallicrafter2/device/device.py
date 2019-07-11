@@ -4,11 +4,11 @@ import time
 class Device(object):
 
     registry = {}
-    id = 0
+    count = 0
 
-    def __init__(self, interval=1, name=None, *args, **kwargs):
-        self.name = name or "dev{}".format(self.id)
-        Device.id += 1
+    def __init__(self, interval=0.1, name=None, *args, **kwargs):
+        self.name = name or "dev{}".format(self.count)
+        Device.count += 1
         Device.registry[self.name] = self
 
         self.data = {}

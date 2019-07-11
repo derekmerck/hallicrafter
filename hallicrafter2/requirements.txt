@@ -1,17 +1,17 @@
-
+# Built-ins
 board
 busio
 analogio
 digitalio
 microcontroller
 
-adafruit_am2320
-
-adafruit_ssd1306
-adafruit_framebuf
+# optional adafruit library devices
+adafruit_am2320      # t/h
+adafruit_bme680      # t/h/g
+adafruit_framebuf    # oled
+adafruit_ssd1306     # oled
+adafruit_tsl2591     # vl/ir
+adafruit_veml6075    # uv
+adafruit_veml7700    # vl
 bus_device
-
-adafruit_tsl2591
-adafruit_veml7700
-
 neopixels

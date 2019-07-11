@@ -1,9 +1,11 @@
 from .device import Device
-from .button import Button
-from .led_strip import LEDStrip
-from .light_sensor import HDRLightSensor
+from .digital_in import Button, Switch
+from .led_strip import LEDStrip, rgb_wheel, rgb_wheel_gen
 from .oled_panel import OLEDPanel
-from .temp_hum_sensor import TempHumSensor
-from .analog_input import AnalogInput
+from .sensors import TempHumSensor, HDRLightSensor, \
+    LightSensor, TempHumGasSensor, UVLightSensor
+from .analog_in import AnalogInput
 from .uart import SerialIO
-from .cpu import Microprocessor
+from .rotary_in import RotaryInput
+from .sys import I2CBus, Memory, Microprocessor
+from .siren_ic import SirenIC

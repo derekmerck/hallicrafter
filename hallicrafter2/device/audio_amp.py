@@ -2,13 +2,8 @@ from .device import Device
 
 class AmpStereo20W(Device):
 
-    id = 0
-
-    def __init__(self, i2c, name=None, *args, **kwargs):
-        if not name:
-            name = "amp{}".format(AmpStereo20W.id)
-        AmpStereo20W.id += 1
-        Device.__init__(self, name=name, *args, **kwargs)
+    def __init__(self, i2c, name="amp0", interval=0.1, *args, **kwargs):
+        Device.__init__(self, name=name, interval=interval, *args, **kwargs)
 
         import adafruit_max9744
         self.amp = adafruit_max9744.MAX9744(i2c.bus)

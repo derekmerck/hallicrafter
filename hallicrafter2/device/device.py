@@ -4,17 +4,21 @@ import time
 class Device(object):
 
     registry = {}
-    count = 0
 
-    def __init__(self, interval=0.1, name=None, *args, **kwargs):
-        self.name = name or "dev{}".format(self.count)
-        Device.count += 1
-        Device.registry[self.name] = self
-
+    def __init__(self, name, interval=0.1, *args, **kwargs):
+        self.name = name
         self.data = {}
         self.interval = interval
         self.last_update = 0.0  # Use w monotonic, i.e., secs since start
         self.callbacks = []
+
+        Device.register(self)
+
+    @classmethod
+    def register(cls, item):
+        if item.name in cls.registry.keys():
+            raise ValueError("Duplicate device name found in registry: {}".format(item.name))
+        cls.registry[item.name] = item
 
     def _update(self):
         try:

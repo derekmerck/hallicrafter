@@ -1,18 +1,16 @@
 from .device import Device
 
+SENSOR_UPDATE_INTERVAL = 5.0
+
 
 class TempHumSensor(Device):
 
-    id = 0
-
-    def __init__(self, i2c, name=None, *args, **kwargs):
-        if not name:
-            name = "tmh{}".format(TempHumSensor.id)
-        TempHumSensor.id += 1
-        Device.__init__(self, name=name, *args, **kwargs)
+    def __init__(self, i2c_bus, name="sns_th0", interval=SENSOR_UPDATE_INTERVAL,
+                 *args, **kwargs):
+        Device.__init__(self, name=name, interval=interval, *args, **kwargs)
 
         import adafruit_am2320
-        self.sensor = adafruit_am2320.AM2320(i2c.bus)
+        self.sensor = adafruit_am2320.AM2320(i2c_bus)
 
         # Order is vdd, sda, gnd, scl (l->r, facing grid)
 
@@ -28,16 +26,12 @@ class TempHumSensor(Device):
 
 class TempHumGasSensor(Device):
 
-    id = 0
-
-    def __init__(self, i2c, name=None, *args, **kwargs):
-        if not name:
-            name = "thg{}".format(TempHumGasSensor.id)
-        TempHumGasSensor.id += 1
-        Device.__init__(self, name=name, *args, **kwargs)
+    def __init__(self, i2c_bus, name="sns_thg", interval=SENSOR_UPDATE_INTERVAL,
+                 *args, **kwargs):
+        Device.__init__(self, name=name, interval=interval, *args, **kwargs)
 
         import adafruit_bme680
-        self.sensor = adafruit_bme680.Adafruit_BME680_I2C(i2c.bus)
+        self.sensor = adafruit_bme680.Adafruit_BME680_I2C(i2c_bus)
 
     def read(self):
         try:
@@ -50,19 +44,15 @@ class TempHumGasSensor(Device):
         except (OSError, RuntimeError) as e:
             print(e)
 
+
 class UVLightSensor(Device):
 
-    id = 0
-
-    def __init__(self, i2c, name=None, *args, **kwargs):
-        if not name:
-            name = "uvl{}".format(UVLightSensor.id)
-        UVLightSensor.id += 1
-        Device.__init__(self, name=name, *args, **kwargs)
+    def __init__(self, i2c_bus, name="sns_uv0", interval=SENSOR_UPDATE_INTERVAL,
+                 *args, **kwargs):
+        Device.__init__(self, name=name, interval=interval, *args, **kwargs)
 
         import adafruit_veml6075
-        self.sensor = adafruit_veml6075.VEML6075(i2c.bus, integration_time=100)
-
+        self.sensor = adafruit_veml6075.VEML6075(i2c_bus, integration_time=100)
 
     def read(self):
         try:
@@ -77,14 +67,12 @@ class HDRLightSensor(Device):
 
     id = 0
 
-    def __init__(self, i2c, name=None, *args, **kwargs):
-        if not name:
-            name = "lth{}".format(HDRLightSensor.id)
-        HDRLightSensor.id += 1
-        Device.__init__(self, name=name, *args, **kwargs)
+    def __init__(self, i2c_bus, name="sns_hdlt", interval=SENSOR_UPDATE_INTERVAL,
+                 *args, **kwargs):
+        Device.__init__(self, name=name, interval=interval, *args, **kwargs)
 
         import adafruit_tsl2591
-        self.sensor = adafruit_tsl2591.TSL2591(i2c.bus)
+        self.sensor = adafruit_tsl2591.TSL2591(i2c_bus)
 
     def read(self):
         try:
@@ -97,20 +85,17 @@ class HDRLightSensor(Device):
             print(e)
 
 
-
 class LightSensor(Device):
     # delay can be as little as 0.1 sec
 
     id = 0
 
-    def __init__(self, name=None, *args, **kwargs):
-        if not name:
-            name = "lit{}".format(LightSensor.id)
-        LightSensor.id += 1
-        Device.__init__(self, name=name, *args, **kwargs)
+    def __init__(self, i2c_bus, name="sns_lt0", interval=SENSOR_UPDATE_INTERVAL,
+                 *args, **kwargs):
+        Device.__init__(self, name=name, interval=interval, *args, **kwargs)
 
         import adafruit_veml7700
-        self.sensor = adafruit_veml7700.VEML7700(i2c.bus)
+        self.sensor = adafruit_veml7700.VEML7700(i2c_bus)
 
     def read(self):
 

@@ -3,13 +3,10 @@ from .device import Device
 
 class OLEDPanel(Device):
 
-    id = 0
+    def __init__(self, i2c, dims, reset_pin, name="oled0", interval=5.0,
+                 *args, **kwargs):
 
-    def __init__(self, i2c, dims, reset_pin, name=None, *args, **kwargs):
-        if not name:
-            name = "olp{}".format(OLEDPanel.id)
-        OLEDPanel.id += 1
-        Device.__init__(self, name=name, *args, **kwargs)
+        Device.__init__(self, name=name, interval=interval, *args, **kwargs)
 
         import adafruit_ssd1306
         import digitalio

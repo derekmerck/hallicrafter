@@ -1,11 +1,14 @@
-import time
 import board
 from device import *
 
 LED_STRIP_CTRL_PIN = board.NEOPIXEL
 LED_STRIP_NUM_LEDS = 1
-OLED_RESET_PIN = board.D9  # D6 is A1 on cpx
-OLED_DIMS = (128, 64)
+
+LORA_CS_PIN = board.D10
+LORA_RESET_PIN = board.D11
+
+# OLED_RESET_PIN = board.D9  # D6 is A1 on cpx
+# OLED_DIMS = (128, 64)
 
 
 # -------------------------------
@@ -13,15 +16,14 @@ OLED_DIMS = (128, 64)
 # -------------------------------
 
 sys = System()
-
-LORA_CS_PIN = board.D10
-LORA_RESET_PIN = board.D11
-lora = LoRaRadio(sys.spi_bus, LORA_CS_PIN, LORA_RESET_PIN)
-
-lora.tx_buffer = "Hello world!"
-
-
 ser = SerialIO()
+
+# -------------------------------
+# Create the LoRa radio
+# -------------------------------
+
+lora = LoRaRadio(sys.spi_bus, LORA_CS_PIN, LORA_RESET_PIN)
+lora.data["tx_buffer"] = "Hello world!"
 
 # -------------------------------
 # Create LED strip
@@ -77,7 +79,6 @@ led_strip.callbacks.append(wheel_callback)
 # Main loop
 # -------------------------------
 
-while True:
-    for device in Device.registry.values():
-        device.poll()
-    sys.data["cycles"] += 1
+if __name__ == "__main__":
+
+    sys.run()

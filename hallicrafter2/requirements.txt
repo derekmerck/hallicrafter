@@ -1,11 +1,11 @@
-# Built-ins
+# CircuitPython built-ins
 board
 busio
 analogio
 digitalio
 microcontroller
 
-# optional adafruit library devices
+# Optional adafruit library devices
 adafruit_am2320      # t/h
 adafruit_bme680      # t/h/g
 adafruit_framebuf    # oled

@@ -35,6 +35,7 @@ class System(Device):
         self.data["cycles"] = 0
 
     def read(self):
+        # Remove introspection by setting `system.read = None` in `code.py`
 
         cyc_per_sec = self.data.get("cycles", 0) / self.interval
         self.data["cycles"] = 0
@@ -53,3 +54,9 @@ class System(Device):
         self.data["i2c_addrs"] = [hex(x) for x in self.bus.scan()]
 
         self.bus.unlock()
+
+    def run(self):
+        while True:
+            for device in Device.registry.values():
+                device.poll()
+            self.data["cycles"] += 1

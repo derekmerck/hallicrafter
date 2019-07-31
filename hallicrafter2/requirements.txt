@@ -8,10 +8,12 @@ microcontroller
 # Optional adafruit library devices
 adafruit_am2320      # t/h
 adafruit_bme680      # t/h/g
+adafruit_bus_device
 adafruit_framebuf    # oled
+adafruit_rfm9x       # radio
 adafruit_ssd1306     # oled
+adafruit_tinylora    # lorawan
 adafruit_tsl2591     # vl/ir
 adafruit_veml6075    # uv
 adafruit_veml7700    # vl
-bus_device
-neopixels
+neopixel

@@ -8,4 +8,4 @@ from .sensors import TempHumSensor, HDRLightSensor, \
 from .uart import SerialIO
 from .ics import SirenIC
 from .audio_amp import AmpStereo20W
-from .lora_radio import LoRaRadio
+from .lora_radio import LoRaRadio, LoRaWanRadio

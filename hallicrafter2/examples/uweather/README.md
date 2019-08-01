@@ -1,9 +1,9 @@
-uWeather Perpetual Station
+uWeather Station
 =======================
 
 Merck, Summer 2019
 
-A Feather Mx based air quality monitor suitable for "off-grid" sensing.  Uses a battery-backed photovoltaic cell for power and a LoRa radio to submit measurement data.  Assembly roughly follows this [Adafruit air-quality sensor tutorial][].
+A Feather-based air quality monitor suitable for perpetual "off-grid" sensing.  Uses a battery-backed photovoltaic cell for power and a LoRa radio to submit measurement data for aggregation.  Assembly roughly follows this [Adafruit air-quality sensor tutorial][].
 
 [Adafruit air-quality sensor tutorial]: https://learn.adafruit.com/adafruit-io-air-quality-monitor
 
@@ -57,7 +57,7 @@ Assembly
 
 - Although Adafruit includes SCL and SDA pullups on their I2C sensors, I found that I had to add 4.7k pullup resistors to the I2C bus to get the system to reliably start up headlessly.
 
-- Assemble the charger.  Make sure to leave some slack on the big capacitor and bend it over slightly to lower the height profile.
+- Assemble the charger.  Make sure to leave some slack on the  capacitor legs and bend it over slightly to lower the height profile.
 
 - Mount the board on the back wall inside the enclosure using 2mm stand-offs.
 
@@ -65,8 +65,9 @@ Assembly
 
 - Update the Feather to the latest bootloader and CircuitPython build.  Copy over the `hallicrafter.device` library and any required Adafruit libs (see `requirements.txt`).  
 
-- Copy `code.py` from this project to the Feather and modify it either to use the simple LoRa radio to forward JSON directly to an aggregator like `io.adafruit.com`, or to use the LoRaWAN radio to forward encoded data to your own TTN app.
+- Copy `code.py` from this project to the Feather and modify it either to use the simple LoRa radio to forward JSON directly to an aggregator like http://io.adafruit.com, or to use the LoRaWAN radio to forward encoded data to your own [TTN][] app.
 
+[TTN]: https://thethingsnetwork.com
 
 LoRaWAN
 ----------------------
@@ -89,7 +90,7 @@ if pkt_json.endswith("gateway status update\n"):
 
 ### Decoding
 
-For packet creation, I use python's `struct` class.  There is an equivalent JavaScript port of the class available as [JSPack](https://github.com/birchroad/node-jspack).
+For packet creation, I use python's `struct` class.  There is an equivalent JavaScript port of the class available as [JSPack](https://github.com/birchroad/node-jspack) that can be used with TTN.
 
 As an example:
 

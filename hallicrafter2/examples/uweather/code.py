@@ -58,6 +58,7 @@ tmp_hum_gas_sensor = TempHumGasSensor(sys.i2c_bus, interval=30.0)
 # -------------------------------
 
 def submit_data(self):
+    # Dump sensor data into the lora object's data array
     for k,v in self.data.items():
         # print("{}: {}".format(k,v))
 
@@ -88,7 +89,7 @@ tmp_hum_gas_sensor.callbacks.append(submit_data)
 
 
 def ttn_encode_sensor_data(self):
-    # Data must be packed to bytes for TTN, see README for decoding
+    # Data must be packed to bytes for TTN, see README for decoding with JSPack
 
     npx.fill((128,64,255))
 

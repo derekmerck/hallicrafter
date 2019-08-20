@@ -53,6 +53,8 @@ Total cost: ~$150
 Assembly
 ----------------------
 
+![Assembled uweather project](uw-assembled.png)
+
 - Layout the parts onto the protoboard, install header segments and wiring. I used the female header on the board and bottom pins on the components, and I soldered connections onto the underside of the protoboard.
 
 - Although Adafruit includes SCL and SDA pullups on their I2C sensors, I found that I had to add 4.7k pullup resistors to the I2C bus to get the system to reliably start up headlessly.
@@ -90,7 +92,7 @@ if pkt_json.endswith("gateway status update\n"):
 
 ### Decoding
 
-For packet creation, I use python's `struct` class.  There is an equivalent JavaScript port of the class available as [JSPack](https://github.com/birchroad/node-jspack) that can be used with TTN.
+For packet creation, I use Python's `struct` class.  There is an equivalent JavaScript port of the class available as [JSPack](https://github.com/birchroad/node-jspack) that can be used with TTN.
 
 As an example:
 
@@ -131,4 +133,4 @@ function Decoder(bytes, port) {
 Notes
 --------------
 
-Todo: Add button to force on demand update
+Todo: Add button to force on demand update for testing

@@ -95,3 +95,34 @@ Design and application stack for "smart" multi-room audio server and players.
 - hab server
 
 [cava]: https://github.com/karlstav/cava
+
+- Eagle -- remove GND and power-out nets from controllers?  Pi can't handle current of ground running through them...
+- Switched to star ground (12v vs. 5v)
+
+
+## Fixes to v4.1
+
+- Solder wires to +12V/GND and connect to terminal
+- Cut 12V gnd to gnd and wire to in- on PSU
+- Cut RPi pin 24 -> DAC BCLK, wire pin 18 to DAC BCLK
+- Remove pins or headers for amp GND+VDD (12V network)
+- Wire vi2c to 3.3V rail (pin X on IBMx)
+
+- Change Rpi header -> Rpi socket (w power in) or reorient to allow access to camera port
+- Reorient DAC to allow access to line out
+- Reorient amp to allow access to line in
+- Add polyfuse on RPi (and maybe IBMx) - no smoke!
+
+
+- header should be:
+ [ r00, r01, s0,       g ],    # volume + mute
+ [ r10, r11, s1,       g ],    # select + ok
+ [ sck, sda,      5v,  g ],    # i2c bus
+ [ scl, sda, rst, 5v,  g ],    # i2c + reset (oled)
+ [      npx,      5v,  g ],    # neopixels
+ 
+ 
+ 2x8, spi?
+ 
+ [ r, r, s, g ], [ r,     r, s, g],
+ [ c, d, 5, g,     t ], [ n, 5, g]

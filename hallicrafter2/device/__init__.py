@@ -1,7 +1,7 @@
 from .device import Device
 from .system import System
 from .inputs import DigitalInput, AnalogInput, RotaryInput, ThresholdEventInput
-from .led_strip import LEDStrip, rgb_wheel, rgb_wheel_gen
+from .led_strip import DotStarLEDs, NeopixelLEDs, rgb_wheel_gen
 from .oled_panel import OLEDPanel
 from .sensors import TempHumSensor, HDRLightSensor, \
     LightSensor, TempHumGasSensor, UVLightSensor

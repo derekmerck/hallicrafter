@@ -17,9 +17,8 @@ LORA_RESET_PIN = board.D11
 # -------------------------------
 
 sys = System()
-# ser = SerialIO()
 
-npx = LEDStrip(board.NEOPIXEL, 1)
+npx = NeopixelLEDs(board.NEOPIXEL, 1)
 npx.fill((0,255,0))
 
 

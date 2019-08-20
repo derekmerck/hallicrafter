@@ -7,8 +7,14 @@ class Battery(Device):
         Device.__init__(self, name=name, interval=interval, *args, **kwargs)
 
         import analogio
-        self.voltage = analogio.AnalogIn(board.VOLTAGE_MONITOR)
+
+        try:
+            self.voltage = analogio.AnalogIn(board.VOLTAGE_MONITOR)
+        except:
+            self.voltage = None
+            print("Warning: No battery voltage available")
 
     def read(self):
-        val = self.voltage.value * 3.3 / 65536 * 2
-        return {"voltage": val}
+        if self.voltage:
+            val = self.voltage.value * 3.3 / 65536 * 2
+            return {"voltage": val}

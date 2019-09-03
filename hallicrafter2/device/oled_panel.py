@@ -3,7 +3,7 @@ from .device import Device
 
 class OLEDPanel(Device):
 
-    def __init__(self, i2c, dims, reset_pin=None, name="oled0",
+    def __init__(self, i2c_bus, dims, reset_pin=None, name="oled0",
                  interval=5.0, addr=0x3d, *args, **kwargs):
 
         Device.__init__(self, name=name, interval=interval, *args, **kwargs)
@@ -18,7 +18,7 @@ class OLEDPanel(Device):
 
         self.oled = adafruit_ssd1306.SSD1306_I2C(
             dims[0], dims[1],
-            i2c.bus,
+            i2c_bus,
             reset=reset,
             addr=addr
         )

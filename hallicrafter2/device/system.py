@@ -1,4 +1,3 @@
-import board
 import time
 from .device import Device
 from .power import Battery

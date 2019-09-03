@@ -95,7 +95,7 @@ Error conditions return "NOK" and error message.\n
 
 class SerialIO(Device):
 
-    def __init__(self, tx_pin=board.TX, rx_pin=board.RX,
+    def __init__(self, tx_pin=None, rx_pin=None,
                  baudrate=115200, tx_led=None, rx_led=None,
                  name="ser0", interval=0.1,
                  *args, **kwargs):
@@ -115,6 +115,17 @@ class SerialIO(Device):
         elif self.rx_led:
             self.rx_led = digitalio.DigitalInOut(rx_led)
             self.rx_led.direction = digitalio.Direction.OUTPUT
+
+        if not tx_pin:
+            try:
+                tx_pin == board.TX
+            except:
+                print("WARNING: No TX available")
+        if not rx_pin:
+            try:
+                rx_pin == board.RX
+            except:
+                print("WARNING: No RX available")
 
         self.uart = busio.UART(tx_pin, rx_pin, baudrate=baudrate, timeout=0)
 

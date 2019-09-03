@@ -2,10 +2,8 @@
 #
 # Originally from:
 # https://learn.adafruit.com/lora-and-lorawan-radio-for-raspberry-pi/rfm9x-raspberry-pi-setup
-
-# sudo pip3 install adafruit-circuitpython-ssd1306
-# sudo pip3 install adafruit-circuitpython-framebuf
-# sudo pip3 install adafruit-circuitpython-rfm9x
+#
+# $ sudo pip3 install adafruit-circuitpython-ssd1306 adafruit-circuitpython-framebuf adafruit-circuitpython-rfm9x
 
 import board
 from device import System, DigitalInput, LoRaRadio, OLEDPanel

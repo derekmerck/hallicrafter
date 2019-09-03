@@ -30,8 +30,11 @@ class System(Device):
             self.enumerate_i2c()
             print("i2c hw addrs: {}".format(self.data["i2c_addrs"]))
 
-        import gc
-        self.free = gc.mem_free
+        try:
+            import gc
+            self.free = gc.mem_free
+        except:
+            self.free = lambda: None
 
         import microcontroller
         self.cpu = microcontroller.cpu

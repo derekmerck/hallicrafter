@@ -1,3 +1,4 @@
+import time
 from .device import Device
 
 
@@ -27,6 +28,7 @@ class OLEDPanel(Device):
         self.oled.text('Hallicrafter v2', 0, 0, 100)
         self.oled.text('Hello world', 0, 10, 100)
         self.oled.show()
+        time.sleep(0.5)
 
     def fill(self, bw):
         self.oled.fill(bw)

@@ -9,12 +9,17 @@ class OLEDPanel(Device):
         Device.__init__(self, name=name, interval=interval, *args, **kwargs)
 
         import adafruit_ssd1306
-        import digitalio
-        pin = digitalio.DigitalInOut(reset_pin)
+
+        if reset_pin:
+            import digitalio
+            reset = digitalio.DigitalInOut(reset_pin)
+        else:
+            reset = None
+
         self.oled = adafruit_ssd1306.SSD1306_I2C(
             dims[0], dims[1],
             i2c.bus,
-            reset=pin,
+            reset=reset,
             addr=addr
         )
 

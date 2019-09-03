@@ -11,9 +11,9 @@ from device import System, DigitalInput, LoRaRadio, OLEDPanel
 
 sys = System()
 
-btnA = DigitalInput(board.D5,  pull="UP")
-btnB = DigitalInput(board.D6,  pull="UP")
-btnC = DigitalInput(board.D12, pull="UP")
+btnA = DigitalInput(board.D5,  pull="UP", name="in_a")
+btnB = DigitalInput(board.D6,  pull="UP", name="in_b")
+btnC = DigitalInput(board.D12, pull="UP", name="in_c")
 oled = OLEDPanel(sys.i2c_bus, dims=(128,32), addr=0x3c, interval=1.0)
 lora = LoRaRadio(sys.spi_bus, board.CE1, board.D25)
 

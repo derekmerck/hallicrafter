@@ -26,6 +26,7 @@ class OLEDPanel(Device):
         self.fill(0)
         self.oled.text('Hallicrafter v2', 0, 0, 100)
         self.oled.text('Hello world', 0, 10, 100)
+        self.oled.show()
 
     def fill(self, bw):
         self.oled.fill(bw)

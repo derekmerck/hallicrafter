@@ -3,8 +3,8 @@ from .device import Device
 
 class OLEDPanel(Device):
 
-    def __init__(self, i2c, dims, reset_pin, name="oled0", interval=5.0,
-                 *args, **kwargs):
+    def __init__(self, i2c, dims, reset_pin=None, name="oled0",
+                 interval=5.0, addr=0x3d, *args, **kwargs):
 
         Device.__init__(self, name=name, interval=interval, *args, **kwargs)
 
@@ -15,7 +15,7 @@ class OLEDPanel(Device):
             dims[0], dims[1],
             i2c.bus,
             reset=pin,
-            addr=0x3d
+            addr=addr
         )
 
         self.fill(0)

@@ -1,9 +1,9 @@
-# Hallicrafter Controller v2
+Hallicrafter Controller
+=======================
 
-Derek Merck  
-Summer 2019  
+Merck, Summer 2019
 
-Design and application stack for "smart" multi-room audio server and players.
+A Raspberry Pi + ItsyBitsy streaming radio with hardware controls and embedded sensing.
 
 
 ## Desiderata
@@ -19,7 +19,7 @@ Design and application stack for "smart" multi-room audio server and players.
 
 ### Sensor Data
 
-- Temp
+- Temperature
 - Humidity
 - Ambient light
 
@@ -35,13 +35,15 @@ Design and application stack for "smart" multi-room audio server and players.
 
 ## Hardware
 
+Streamlined to work with components and connections as documented in custom PCB schematics, but can be modified to work with any similar component organization.  First reference for each component is "as intended".  Subsequent alternates may require slight modifications.
+
 - Enclosure (old radios are good)
-- Raspberry Pi 3/0 w WiFi ([Adafruit Pi Zero][], [Canakit Pi 3B+])
+- Raspberry Pi 0/3+ w WiFi ([Adafruit Pi Zero][], [Canakit Pi 3B+])
+- ItsyBitsy M4
 - Audio DAC ([Adafruit i2s bonnet][], [Pimaroni phat dac][], hifiberry or clone, usb dac)
 - 15-20W audio amplifier ([Adafruit 20W amp][], [Drok 20W amp][])
 - 1 or 2 15-20W audio drivers ([Adafruit 20W driver][], [Drok 15W driver][])
 - 8-32 NeoPixels/WS2812B pixel strip ([Alitove 60px strip][])
-- Diode (WS2812B strip requires slight voltage reduction to use RPi control line)
 - 2-3x SPST switches (audio, backlight, camera)
 - 1x pot/rotary encoder (volume)
 - 12-20V psu (I use old laptop chargers)

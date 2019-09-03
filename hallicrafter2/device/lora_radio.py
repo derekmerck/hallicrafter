@@ -50,9 +50,8 @@ class LoRaWanRadio(Device):
 
 class LoRaRadio(Device):
 
-    def __init__(self, spi, cs_pin, reset_pin, tx_led=None ,
+    def __init__(self, spi, cs_pin, reset_pin, tx_led=None, rx_led=None,
                  name="lra0", interval=10.0, *args, **kwargs):
-        # tx_power may be 5-23 (default 13)
 
         Device.__init__(self, name=name, interval=interval, *args, **kwargs)
 
@@ -62,14 +61,36 @@ class LoRaRadio(Device):
         cs = digitalio.DigitalInOut(cs_pin)
         reset = digitalio.DigitalInOut(reset_pin)
 
-        self.tx_led = tx_led
-        if self.tx_led:
+        self.tx_led = None
+        if tx_led:
             self.tx_led = digitalio.DigitalInOut(tx_led)
             self.tx_led.direction = digitalio.Direction.OUTPUT
 
+        self.rx_led = None
+        if rx_led:
+            self.rx_led = digitalio.DigitalInOut(rx_led)
+            self.rx_led.direction = digitalio.Direction.OUTPUT
+
         self.rfm9x = RFM9x(spi, cs, reset, 915.0)
+        self.data["rx_buffer"] = None
         self.data["tx_buffer"] = None
-        self.data["tx_power"] = None   # Default 13
+        self.data["tx_power"]  = None
+        # tx_power may be 5-23 (default 13)
+
+    def read(self):
+
+        if self.rx_led:
+            self.rx_led.value = True
+
+        packet = self.rfm9x.receive()
+        if packet is None:
+            self.data['rx_buffer'] = None
+        else:
+            self.data['rx_buffer'] = str(packet, "utf-8")
+            print("LORA RX: {}".format(self.data["rx_buffer"]))
+
+        if self.rx_led:
+            self.rx_led.value = False
 
     def write(self):
 

@@ -16,7 +16,7 @@ VOL_0_PIN = board.D12
 VOL_1_PIN = board.D11
 VOL_MUTE_PIN  = board.D4
 VOL_MUTE_PIN_PULL = "UP"
-VOL_INIT  = 24
+VOL_INIT  = 32
 
 AMP_MUTE_PIN = board.D9
 
@@ -71,7 +71,7 @@ vol = RotaryInput(VOL_0_PIN, VOL_1_PIN, VOL_MUTE_PIN,
 # -------------------------------
 
 amp = AmpStereo20W(sys.i2c_bus, mute_pin=AMP_MUTE_PIN)
-# amp.data["volume"] = VOL_INIT
+amp.data["volume"] = VOL_INIT
 
 vol.pressed = False
 vol.pos = 0

@@ -7,7 +7,7 @@ A Feather-based air quality monitor suitable for perpetual "off-grid" sensing.  
 
 [Adafruit air-quality sensor tutorial]: https://learn.adafruit.com/adafruit-io-air-quality-monitor
 
-Sample output from a prototype system can often be viewed at [Dweet][].
+Prototype has been running continuously for serval weeks.  Sample output from the system can often be viewed at [Dweet][].  The feed occasionally goes down when the gateway crashes.
 
 [Dweet]: https://dweet.io/get/dweets/for/uweather
 
@@ -24,7 +24,7 @@ Parts List
 - [Solar charger][] - $18
 - [1200mAh LiPo battery][] - $10
 - [6V/1W solar panel][] - $20
-- [2.1mm DC plug][] - $1
+- [2.1mm DC plug][]/2-pin JST - $1
 - [Female header][] - $3
 - [Perfboard][] - $11
 - [Small enclosure][] - $10
@@ -63,11 +63,11 @@ Assembly
 
 - Mount the board on the back wall inside the enclosure using 2mm stand-offs.
 
-- Change the photocell cord to use a 2.1mm jack, run it through the aperture, and seal the box up.
+- Change the photocell cord to use a 2.1mm jack or 2-pin JST connector, run it through the aperture, and seal the box up.
 
 - Update the Feather to the latest bootloader and CircuitPython build.  Copy over the `hallicrafter.device` library and any required Adafruit libs (see `requirements.txt`).  
 
-- Copy `code.py` from this project to the Feather and modify it either to use the simple LoRa radio to forward JSON directly to an aggregator like http://io.adafruit.com, or to use the LoRaWAN radio to forward encoded data to your own [TTN][] app.
+- Copy `code.py` from this project to the Feather and modify it either to use the simple LoRa radio to forward JSON directly to an aggregator like <http://io.adafruit.com>, or to use the LoRaWAN radio to forward encoded data to your own [TTN][] app.
 
 [TTN]: https://thethingsnetwork.com
 

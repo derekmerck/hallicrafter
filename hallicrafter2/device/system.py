@@ -36,8 +36,13 @@ class System(Device):
         except:
             self.free = lambda: None
 
-        import microcontroller
-        self.cpu = microcontroller.cpu
+        try:
+            import microcontroller
+            self.cpu = microcontroller.cpu
+        except:
+            from types import SimpleNamespace
+            self.cpu = SimpleNamespace()
+            self.cpu.temperature = None
 
         self.data["cycles"] = 0
 

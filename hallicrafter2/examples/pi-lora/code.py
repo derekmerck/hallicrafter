@@ -20,7 +20,7 @@ lora = LoRaRadio(sys.spi_bus, board.CE1, board.D25)
 
 def btn_cb(self):
     if not self.last_value:
-        state = "Pressed {}".format(self.name)
+        state = "Pressed {}".format(self.name).encode('utf8')
         lora.data["tx_buffer"] = state
 
 btnA.callbacks.append(btn_cb)

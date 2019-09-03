@@ -34,7 +34,7 @@ class OLEDPanel(Device):
         self.oled.fill(0)
         i = 0
         for k, v in self.data.items():
-            self.oled.text("{:<6}: {}".format(k[0:6], v), 0, i*10, 100)
+            self.oled.text("{:<4}: {}".format(k[0:6], v), 0, i*10, 100)
             i+=1
 
     def write(self):
